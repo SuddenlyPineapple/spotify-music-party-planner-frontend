@@ -1,10 +1,10 @@
 <template>
-  <h1>{{ msg }}</h1>
+  <h1>{{ text }}</h1>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
-  props: ["msg"]
+  name: "Header",
+  props: ["text"]
 };
 </script>
