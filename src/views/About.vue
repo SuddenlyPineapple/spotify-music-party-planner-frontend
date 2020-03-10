@@ -2,18 +2,18 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <HelloWorld msg="About" />
+        <Header text="About" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
+import Header from "../components/Header";
 
 export default {
   components: {
-    HelloWorld
+    Header
   }
 };
 </script>
