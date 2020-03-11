@@ -4,9 +4,7 @@ const SCOPES = encodeURIComponent(
 );
 const REDIRECT_URI =
   process.env.NODE_ENV === "production"
-    ? encodeURIComponent(
-        "https://suddenlypineapple.github.io/spotify-music-party-planner-frontend"
-      )
+    ? encodeURIComponent("https://suddenlypineapple.github.io")
     : encodeURIComponent("http://localhost:8080");
 
 export const redirectToURL = route =>
