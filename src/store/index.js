@@ -12,6 +12,10 @@ export default new Vuex.Store({
         to: "/"
       },
       {
+        text: "Search",
+        to: "/search"
+      },
+      {
         text: "About",
         to: "/about"
       }

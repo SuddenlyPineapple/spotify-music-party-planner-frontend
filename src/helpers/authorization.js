@@ -10,13 +10,11 @@ export const checkAutorization = () => {
   }
 
   const error = /error=/.exec(window.location.hash);
-
   if (error) {
     errorValue = "Error signing in. Please try again later.";
   }
 
   const match = /access_token=([^&]*)/.exec(window.location.hash);
-
   if (match) {
     const accessToken = decodeURIComponent(match[1].replace(/\+g/, " "));
 
@@ -28,12 +26,12 @@ export const checkAutorization = () => {
       document.title,
       window.location.pathname + window.location.search
     );
-
-    return {
-      token: tokenValue,
-      error: errorValue
-    };
   }
+
+  return {
+    token: tokenValue,
+    error: errorValue
+  };
 };
 
 export const redirectSpotifyAuth = () => {

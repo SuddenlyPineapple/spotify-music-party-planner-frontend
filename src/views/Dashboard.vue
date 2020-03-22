@@ -28,14 +28,11 @@ export default {
     LogonButton
   },
   data: () => ({
-    auth: {
-      error: "",
-      token: null
-    },
     authHandler: redirectSpotifyAuth
   }),
-  created() {
-    this.auth = checkAutorization();
-  }
+  computed: {
+    auth: () => checkAutorization()
+  },
+  created() {}
 };
 </script>
