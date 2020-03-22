@@ -7,15 +7,14 @@
 
       <v-col cols="12" v-if="auth.error || error">
         <ErrorMessage
-          message="There is a problem with Spotify API or our backend. Try refresh or contact Administraor."
-        ></ErrorMessage>
+          message="There is a problem with Spotify API or our backend. Try refresh page or contact Administraor."
+        />
       </v-col>
 
       <v-col cols="12">
         <EventList
           v-if="auth && auth.token"
           :events="events"
-          :userId="userId"
           :loading="loading"
         />
         <LogonButton v-else :handleAuth="authHandler" />
