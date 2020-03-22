@@ -8,7 +8,6 @@
     multi-sort
     :loading="loading"
     loading-text="Fetching data..."
-    :key="events.id"
   />
 </template>
 
