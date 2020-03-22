@@ -4,7 +4,7 @@
       Plese login to your spotify account to be able define events, manage them
       & planning party playlist!
     </h3>
-    <v-btn color="success" @click="handleAuth">ZALOGUJ SIĘ</v-btn>
+    <v-btn color="accent" @click="handleAuth">ZALOGUJ SIĘ</v-btn>
   </div>
 </template>
 
