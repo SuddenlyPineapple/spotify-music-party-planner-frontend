@@ -13,7 +13,7 @@
 
       <v-col cols="12">
         <EventList
-          v-if="auth && auth.token && events"
+          v-if="auth && auth.token"
           :events="events"
           :userId="userId"
           :loading="loading"
@@ -59,30 +59,31 @@ export default {
     ...mapActions(["getUserData"])
   },
   async mounted() {
-    try {
-      const user = await this.getUserData;
+    if (this.auth && this.auth.token)
+      try {
+        const user = await this.getUserData;
 
-      if (user.id) {
-        this.loading = true;
-        axios
-          .get(apiUrl + "events?userId=" + user.id)
-          .then(response => {
-            this.events = response.data.events;
-            this.loading = false;
-          })
-          .catch(() => {
-            this.error = true;
-            this.loading = false;
-          });
-      } else {
-        this.auth = {
-          ...this.auth,
-          error: true
-        };
+        if (user.id) {
+          this.loading = true;
+          axios
+            .get(apiUrl + "events?userId=" + user.id)
+            .then(response => {
+              this.events = response.data.events;
+              this.loading = false;
+            })
+            .catch(() => {
+              this.error = true;
+              this.loading = false;
+            });
+        } else {
+          this.auth = {
+            ...this.auth,
+            error: true
+          };
+        }
+      } catch {
+        this.error = true;
       }
-    } catch {
-      this.error = true;
-    }
   }
 };
 </script>
