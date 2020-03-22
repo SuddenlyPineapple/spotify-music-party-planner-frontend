@@ -19,27 +19,47 @@
           placeholder="Type to search music..."
         />
       </v-col>
+
+      <v-col cols="12">
+        <SongList :tracks="tracks" />
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import Header from "../components/Header";
+import SongList from "../components/SongList";
 import ErrorMessage from "../components/ErrorMessage";
+import axios from "axios";
+import { apiUrl } from "../config/backend";
 
 export default {
   name: "Search",
   components: {
     Header,
+    SongList,
     ErrorMessage
   },
   data: () => ({
     query: "",
+    tracks: [],
     error: ""
   }),
   methods: {
     searchMusic() {
-      console.log("123");
+      this.error = "";
+      if (this.query) {
+        axios
+          .get(apiUrl + "explore/search?query=" + this.query)
+          .then(response => {
+            if (response.status != 200) this.error = "Response error";
+            else this.tracks = response.data.tracks;
+          })
+          .catch(error => {
+            this.error = error;
+          });
+      }
     }
   }
 };

@@ -1,1 +1,1 @@
-export const apiUrl = "jrie.eu";
+export const apiUrl = "http://jrie.eu:40001/";
