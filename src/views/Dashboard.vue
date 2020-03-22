@@ -4,6 +4,13 @@
       <v-col cols="12">
         <Header text="Dashboard" />
       </v-col>
+
+      <v-col cols="12" v-if="auth.error">
+        <ErrorMessage
+          message="There is a problem with Spotify API or our backend. Please contact Administraor."
+        ></ErrorMessage>
+      </v-col>
+
       <v-col cols="12">
         <h1 v-if="auth && auth.token">token {{ auth.token }}</h1>
         <LogonButton v-else :handleAuth="authHandler" />
@@ -16,6 +23,8 @@
 <script>
 import Header from "../components/Header";
 import LogonButton from "../components/LogonButton";
+import ErrorMessage from "../components/ErrorMessage";
+
 import {
   redirectSpotifyAuth,
   checkAutorization
@@ -25,7 +34,8 @@ export default {
   name: "Dashboard",
   components: {
     Header,
-    LogonButton
+    LogonButton,
+    ErrorMessage
   },
   data: () => ({
     authHandler: redirectSpotifyAuth
