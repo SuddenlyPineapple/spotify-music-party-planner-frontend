@@ -21,7 +21,7 @@
       </v-col>
 
       <v-col cols="12">
-        <SongList :tracks="tracks" />
+        <SongList :tracks="tracks" :loading="loading" />
       </v-col>
     </v-row>
   </v-container>
@@ -44,20 +44,26 @@ export default {
   data: () => ({
     query: "",
     tracks: [],
+    loading: false,
     error: ""
   }),
   methods: {
     searchMusic() {
       this.error = "";
+
       if (this.query) {
+        this.loading = true;
         axios
-          .get(apiUrl + "explore/search?query=" + this.query)
+          .get(apiUrl + "explore/search?query=" + encodeURI(this.query))
           .then(response => {
-            if (response.status != 200) this.error = "Response error";
-            else this.tracks = response.data.tracks;
+            if (response.status == 200) this.tracks = response.data.tracks;
+            else if (response.status == 204) this.tracks = [];
+            else this.error = "Response error";
+            this.loading = false;
           })
           .catch(error => {
             this.error = error;
+            this.loading = false;
           });
       }
     }
