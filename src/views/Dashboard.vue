@@ -13,7 +13,7 @@
 
       <v-col cols="12">
         <EventList
-          v-if="auth && auth.token && events"
+          v-if="auth && auth.token"
           :events="events"
           :userId="userId"
           :loading="loading"
