@@ -100,6 +100,13 @@
                   </v-date-picker>
                 </v-menu>
               </v-col>
+
+              <v-col cols="12">
+                <v-checkbox
+                  v-model="event.open"
+                  :label="`Free Entrance: ${event.open ? 'Yes' : 'No'}`"
+                ></v-checkbox>
+              </v-col>
             </v-row>
           </v-container>
           <small>*indicates required field</small>
@@ -141,7 +148,8 @@ export default {
     date: new Date().toISOString().substr(0, 10),
     event: {
       name: "",
-      location: ""
+      location: "",
+      open: false
     },
 
     //ButtonData
@@ -170,8 +178,11 @@ export default {
           })
           .then(result => {
             this.dialog = false;
-            this.event.name = "";
-            this.event.location = "";
+            this.event = {
+              name: "",
+              location: "",
+              open: false
+            };
 
             this.$emit("saved", result.data.id);
           })
