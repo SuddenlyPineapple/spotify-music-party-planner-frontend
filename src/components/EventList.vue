@@ -11,7 +11,7 @@
   >
     <template v-slot:item.open="{ item }">
       <v-icon v-if="item.open" color="accent" small>
-        mdi-clock
+        mdi-check
       </v-icon>
       <v-icon v-else color="red" small>
         mdi-lock
