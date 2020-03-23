@@ -14,7 +14,7 @@
           gatherings. The application is integrated with Spotify's REST API.
         </p>
         <p>
-          It also team project created by IT students at
+          It's also team project created by IT students at
           <strong>Poznan University of Technology.</strong>
         </p>
         <strong>Authors:</strong>
