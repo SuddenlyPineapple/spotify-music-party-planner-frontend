@@ -15,13 +15,12 @@
           :items="tracks"
           :headers="headers"
           :items-per-page="5"
-          show-select
           class="elevation-1"
         >
           <template v-slot:item.album="{ item }">
             <img
-              v-if="item.img.length == 3"
-              :src="item.img[2].url"
+              v-if="item.album.img.length == 3"
+              :src="item.album.img[2].url"
               height="64"
               width="64"
             />
