@@ -59,6 +59,7 @@ export default {
             if (response.status == 200) this.tracks = response.data.tracks;
             else if (response.status == 204) this.tracks = [];
             else this.error = "Response error";
+            console.log(this.tracks);
             this.loading = false;
           })
           .catch(error => {
