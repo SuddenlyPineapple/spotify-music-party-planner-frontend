@@ -19,6 +19,13 @@
         />
         <LogonButton v-else :handleAuth="authHandler" />
       </v-col>
+      <v-col>
+        <AddEventModal
+          v-if="auth && auth.token"
+          :userId="userId"
+          @saved="getEvents"
+        />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -28,6 +35,7 @@ import Header from "../components/Header";
 import LogonButton from "../components/LogonButton";
 import ErrorMessage from "../components/ErrorMessage";
 import EventList from "../components/EventList";
+import AddEventModal from "../components/AddEventModal";
 
 import { mapActions } from "vuex";
 import { apiUrl } from "../config/backend";
@@ -44,7 +52,8 @@ export default {
     Header,
     LogonButton,
     ErrorMessage,
-    EventList
+    EventList,
+    AddEventModal
   },
   data: () => ({
     authHandler: redirectSpotifyAuth,
@@ -57,32 +66,38 @@ export default {
     auth: () => checkAutorization(),
     ...mapActions(["getUserData"])
   },
-  async mounted() {
-    if (this.auth && this.auth.token)
-      try {
-        const user = await this.getUserData;
+  methods: {
+    async getEvents() {
+      if (this.auth && this.auth.token)
+        try {
+          const user = await this.getUserData;
 
-        if (user.id) {
-          this.loading = true;
-          axios
-            .get(apiUrl + "events?userId=" + user.id)
-            .then(response => {
-              this.events = response.data.events;
-              this.loading = false;
-            })
-            .catch(() => {
-              this.error = true;
-              this.loading = false;
-            });
-        } else {
-          this.auth = {
-            ...this.auth,
-            error: true
-          };
+          if (user.id) {
+            this.userId = user.id;
+            this.loading = true;
+            axios
+              .get(apiUrl + "events?userId=" + user.id)
+              .then(response => {
+                this.events = response.data.events;
+                this.loading = false;
+              })
+              .catch(() => {
+                this.error = true;
+                this.loading = false;
+              });
+          } else {
+            this.auth = {
+              ...this.auth,
+              error: true
+            };
+          }
+        } catch {
+          this.error = true;
         }
-      } catch {
-        this.error = true;
-      }
+    }
+  },
+  mounted() {
+    this.getEvents();
   }
 };
 </script>

@@ -7,6 +7,9 @@ export const checkAutorization = () => {
   const token = localStorage.getItem("ACCESS_TOKEN");
   if (token) {
     tokenValue = token;
+    setTimeout(() => {
+      localStorage.removeItem("ACCESS_TOKEN");
+    }, 3600 * 1000);
   }
 
   const error = /error=/.exec(window.location.hash);
