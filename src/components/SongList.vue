@@ -18,23 +18,21 @@
           show-select
           class="elevation-1"
         >
-          <template v-slot:item.album.img="{ item }">
-            <v-img
-              v-if="item.length == 3"
-              :src="item[2]"
+          <template v-slot:item.album="{ item }">
+            <img
+              v-if="item.img.length == 3"
+              :src="item.img[2].url"
               height="64"
               width="64"
-            ></v-img>
-            <td v-else>
-              <img
-                src="../assets/default-album-artwork.png"
-                height="64"
-                width="64"
-              />
-            </td>
+            />
+            <img
+              v-else
+              src="../assets/default-album-artwork.png"
+              height="64"
+              width="64"
+            />
           </template>
         </v-data-table>
-        {{ tracks }}
       </v-col>
     </v-row>
   </v-container>
@@ -46,7 +44,7 @@ export default {
   props: ["tracks", "loading"],
   data: () => ({
     headers: [
-      { text: "Cover", sortable: false, value: "album.img[2].url" },
+      { text: "Cover", sortable: false, value: "album" },
       { text: "Title", value: "name" },
       { text: "Artist", value: "artist" },
       { text: "Duration", value: "duration" }
