@@ -43,14 +43,16 @@ export default new Vuex.Store({
   actions: {
     getUserData(context) {
       return new Promise((resolve, reject) => {
-        if (typeof this.state.userData === "undefined") {
+        const token = this.getters.getToken;
+
+        if (token && typeof this.state.userData === "undefined") {
           const settings = {
             async: true,
             crossDomain: true,
             url: "https://api.spotify.com/v1/me",
             method: "GET",
             headers: {
-              Authorization: "Bearer " + this.getters.getToken
+              Authorization: "Bearer " + token
             }
           };
 
