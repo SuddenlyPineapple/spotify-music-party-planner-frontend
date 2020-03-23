@@ -16,6 +16,12 @@ const routes = [
     component: () => import("../views/Search.vue")
   },
   {
+    path: "/event/:id",
+    name: "Event",
+    props: true,
+    component: () => import("../views/Event.vue")
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting
