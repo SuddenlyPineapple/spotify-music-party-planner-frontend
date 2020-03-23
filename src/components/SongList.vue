@@ -9,7 +9,7 @@
           indeterminate
         ></v-progress-circular>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" v-else>
         <v-data-table
           v-model="selected"
           :items="tracks"
