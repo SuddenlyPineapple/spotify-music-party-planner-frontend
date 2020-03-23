@@ -169,7 +169,6 @@ export default {
             hostId: this.userId
           })
           .then(result => {
-            console.log("DONE", result);
             this.dialog = false;
             this.event.name = "";
             this.event.location = "";
