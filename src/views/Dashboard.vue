@@ -97,6 +97,12 @@ export default {
     }
   },
   mounted() {
+    let redirect = sessionStorage.redirect;
+    delete sessionStorage.redirect;
+    if (redirect && redirect != location.pathname) {
+      this.$router.push(redirect);
+    }
+
     this.getEvents();
   }
 };
