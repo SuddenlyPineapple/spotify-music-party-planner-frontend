@@ -16,6 +16,12 @@ const routes = [
     component: () => import("../views/Search.vue")
   },
   {
+    path: "/search/:id",
+    name: "Search",
+    props: true,
+    component: () => import("../views/Search.vue")
+  },
+  {
     path: "/event/:id",
     name: "Event",
     props: true,

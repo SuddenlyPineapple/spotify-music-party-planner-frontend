@@ -11,10 +11,9 @@
       </v-col>
       <v-col cols="12" v-else>
         <v-data-table
-          v-model="selected"
           :items="tracks"
           :headers="headers"
-          :items-per-page="5"
+          :items-per-page="10"
           class="elevation-1"
         >
           <template v-slot:item.album="{ item }">
@@ -31,24 +30,116 @@
               width="64"
             />
           </template>
+
+          <template v-slot:item.id="{ item }">
+            <v-btn
+              @click="addSong(item.id)"
+              color="accent"
+              dark
+              icon
+              :ripple="false"
+            >
+              <v-icon v-if="inPlaylist(item.id)">mdi-heart</v-icon>
+              <v-icon v-else>mdi-heart-outline</v-icon>
+            </v-btn>
+          </template>
         </v-data-table>
       </v-col>
     </v-row>
+
+    <v-snackbar
+      v-model="showError"
+      bottom
+      color="red"
+      multi-line
+      right
+      :timeout="4000"
+    >
+      {{ error }}
+      <v-btn dark text @click="showError = false" fab>
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
+import axios from "axios";
+import { apiUrl } from "../config/backend";
+
 export default {
   name: "SongList",
-  props: ["tracks", "loading"],
+  props: ["tracks", "loading", "eventId"],
   data: () => ({
-    headers: [
-      { text: "Cover", sortable: false, value: "album" },
-      { text: "Title", value: "name" },
-      { text: "Artist", value: "artist" },
-      { text: "Duration", value: "duration" }
-    ],
-    selected: []
-  })
+    selected: [],
+    error: "",
+    showError: false
+  }),
+  computed: {
+    headers() {
+      return this.eventId
+        ? [
+            { text: "Cover", sortable: false, value: "album" },
+            { text: "Title", value: "name" },
+            { text: "Artist", value: "artist" },
+            { text: "Album", value: "album.name" },
+            { text: "Duration", value: "duration" },
+            { text: "Add to playlist", value: "id" }
+          ]
+        : [
+            { text: "Cover", sortable: false, value: "album" },
+            { text: "Title", value: "name" },
+            { text: "Artist", value: "artist" },
+            { text: "Album", value: "album.name" },
+            { text: "Duration", value: "duration" }
+          ];
+    }
+  },
+  methods: {
+    setError(error) {
+      this.showError = true;
+      this.error = error;
+    },
+    addSong(songId) {
+      const endpoint = apiUrl + "events/" + this.eventId + "/suggestions";
+
+      if (this.inPlaylist(songId)) {
+        axios
+          .delete(endpoint, {
+            data: {
+              tracks: [songId]
+            }
+          })
+          .then(response => {
+            if (response.status == 200)
+              this.selected = this.selected.filter(song => song != songId);
+          })
+          .catch(this.setError);
+      } else {
+        axios
+          .put(endpoint, {
+            tracks: [songId]
+          })
+          .then(response => {
+            if (response.status == 200) this.selected.push(songId);
+          })
+          .catch(this.setError);
+      }
+    },
+    inPlaylist(songId) {
+      return !!this.selected.filter(song => song == songId).length;
+    },
+    getSelected() {
+      axios
+        .get(apiUrl + "events/" + this.eventId)
+        .then(resposne => {
+          this.selected = resposne.data.playlist.tracks.map(track => track.id);
+        })
+        .catch(this.setError);
+    }
+  },
+  mounted() {
+    if (this.eventId) this.getSelected();
+  }
 };
 </script>

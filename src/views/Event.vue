@@ -5,6 +5,11 @@
         <Header text="Event" />
         {{ id }}
       </v-col>
+      <v-col cols="12">
+        <v-btn @click="$router.push('/search/' + id)" color="accent" dark>
+          Add Songs
+        </v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
