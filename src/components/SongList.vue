@@ -140,6 +140,7 @@ export default {
   },
   mounted() {
     if (this.eventId && !this.eventView) this.getSelected();
+    else this.selected = this.tracks.map(track => track.id);
   }
 };
 </script>
