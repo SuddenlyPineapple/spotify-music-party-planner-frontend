@@ -69,7 +69,7 @@ import { apiUrl } from "../config/backend";
 
 export default {
   name: "SongList",
-  props: ["tracks", "loading", "eventId"],
+  props: ["tracks", "loading", "eventId", "eventView"],
   data: () => ({
     selected: [],
     error: "",
@@ -132,14 +132,14 @@ export default {
     getSelected() {
       axios
         .get(apiUrl + "events/" + this.eventId)
-        .then(resposne => {
-          this.selected = resposne.data.playlist.tracks.map(track => track.id);
+        .then(response => {
+          this.selected = response.data.playlist.tracks.map(track => track.id);
         })
         .catch(this.setError);
     }
   },
   mounted() {
-    if (this.eventId) this.getSelected();
+    if (this.eventId && !this.eventView) this.getSelected();
   }
 };
 </script>
