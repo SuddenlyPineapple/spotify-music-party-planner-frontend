@@ -21,7 +21,7 @@
               : []
           "
           :eventId="event.id"
-          eventView
+          :eventView="true"
           :loading="loading"
         />
       </v-col>
