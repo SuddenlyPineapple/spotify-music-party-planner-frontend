@@ -100,7 +100,8 @@ export default {
     let redirect = sessionStorage.redirect;
     delete sessionStorage.redirect;
     if (redirect && redirect != location.pathname) {
-      this.$router.push(redirect);
+      const path = redirect.match(/\/\w*\/\w*/);
+      if (path.length > 0) this.$router.push(path[0]);
     }
 
     this.getEvents();
