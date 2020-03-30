@@ -11,7 +11,7 @@
         />
       </v-col>
 
-      <v-col cols="12">
+      <v-col cols="12" class="pb-0 mb-0">
         <v-text-field
           v-model="query"
           @keyup="searchMusic"
@@ -20,9 +20,16 @@
         />
       </v-col>
 
-      <v-col cols="12">
-        <SongList :tracks="tracks" :loading="loading" />
+      <v-col cols="12" v-if="query" class="pt-0">
+        <SongList :tracks="tracks" :loading="loading" :eventId="id" />
       </v-col>
+
+      <div v-else>
+        <v-card-title class="pt-0 less-margin-top">
+          <img src="../assets/arrow.png" class="arrow-position" />
+          <h1 class="title">Search for songs!</h1>
+        </v-card-title>
+      </div>
     </v-row>
   </v-container>
 </template>
@@ -36,6 +43,7 @@ import { apiUrl } from "../config/backend";
 
 export default {
   name: "Search",
+  props: ["id"],
   components: {
     Header,
     SongList,
@@ -70,3 +78,16 @@ export default {
   }
 };
 </script>
+
+<style scope lang="scss">
+img {
+  margin-top: 5px;
+}
+.arrow-position {
+  max-height: 64px;
+  margin-right: 10px;
+}
+.less-margin-top {
+  margin-top: -15px;
+}
+</style>
