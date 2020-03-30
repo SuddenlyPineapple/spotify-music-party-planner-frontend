@@ -17,7 +17,7 @@ const routes = [
   },
   {
     path: "/search/:id",
-    name: "Search",
+    name: "Search for event",
     props: true,
     component: () => import("../views/Search.vue")
   },
