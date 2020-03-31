@@ -1,6 +1,8 @@
 # spotify-music-party-planner-frontend
 [![Build Status](https://travis-ci.org/SuddenlyPineapple/spotify-music-party-planner-frontend.svg?branch=master)](https://travis-ci.org/SuddenlyPineapple/spotify-music-party-planner-frontend.svg?branch=master)
 
+[Project Board Link](https://github.com/users/SuddenlyPineapple/projects/1)
+
 ## Project setup
 ```
 npm install
