@@ -25,6 +25,13 @@
           :loading="loading"
         />
       </v-col>
+      <v-col cols="12">
+        <DeleteEventModal
+          v-if="event && event.id && event.name"
+          :eventId="event.id"
+          :eventName="event.name"
+        />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -32,6 +39,7 @@
 <script>
 import Header from "../components/Header";
 import SongList from "../components/SongList";
+import DeleteEventModal from "../components/DeleteEventModal";
 import axios from "axios";
 import { apiUrl } from "../config/backend";
 
@@ -45,7 +53,8 @@ export default {
   }),
   components: {
     Header,
-    SongList
+    SongList,
+    DeleteEventModal
   },
   methods: {
     getEvent() {
