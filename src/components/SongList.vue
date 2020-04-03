@@ -53,7 +53,7 @@
       color="red"
       multi-line
       right
-      :timeout="4000"
+      :timeout="6000"
     >
       {{ error }}
       <v-btn dark text @click="showError = false" fab>
@@ -98,7 +98,10 @@ export default {
   methods: {
     setError(error) {
       this.showError = true;
-      this.error = error;
+      if (error == "Error: Request failed with status code 404")
+        this.error =
+          "Error: 404. Probably your Event ID in URL is invalid or event you refering to doesn't exists anymore.";
+      else this.error = error;
     },
     addSong(songId) {
       const endpoint = apiUrl + "events/" + this.eventId + "/suggestions";

@@ -1,6 +1,11 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row v-if="error">
+      <v-col cols="12">
+        <ErrorMessage :message="error" />
+      </v-col>
+    </v-row>
+    <v-row v-else>
       <v-col cols="12">
         <Header text="Event" />
         {{ id }}
@@ -40,6 +45,7 @@
 import Header from "../components/Header";
 import SongList from "../components/SongList";
 import DeleteEventModal from "../components/DeleteEventModal";
+import ErrorMessage from "../components/ErrorMessage";
 import axios from "axios";
 import { apiUrl } from "../config/backend";
 
@@ -54,7 +60,8 @@ export default {
   components: {
     Header,
     SongList,
-    DeleteEventModal
+    DeleteEventModal,
+    ErrorMessage
   },
   methods: {
     getEvent() {
@@ -67,8 +74,13 @@ export default {
         })
         .catch(this.setError);
     },
-    setError(err) {
-      this.error = err;
+    setError(error) {
+      if (error == "Error: Request failed with status code 404")
+        this.error =
+          "Event that you are referring to by URL doesn't exist anymore, go to dashboard to create new one or try refresh page.";
+      else
+        this.error =
+          "There is a problem with Spotify API or our backend. Try refresh page or contact Administraor.";
       this.loading = false;
     }
   },
