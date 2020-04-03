@@ -101,7 +101,7 @@ export default {
     delete sessionStorage.redirect;
     if (redirect && redirect != location.pathname) {
       const path = redirect.match(/\/(event|search|about|404)\/?[\d\w]{0,24}/);
-      if (path.length > 0) this.$router.push(path[0]);
+      if (path && path.length > 0) this.$router.push(path[0]);
     }
 
     this.getEvents();
