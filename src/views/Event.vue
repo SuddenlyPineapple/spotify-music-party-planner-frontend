@@ -8,7 +8,7 @@
     <v-row v-else>
       <v-col cols="12">
         <Header text="Event" />
-        {{ id }}
+        <EventInfo :event="event" />
       </v-col>
       <v-col cols="12">
         <v-btn @click="$router.push('/search/' + id)" color="accent" dark>
@@ -44,6 +44,7 @@
 <script>
 import Header from "../components/Header";
 import SongList from "../components/SongList";
+import EventInfo from "../components/EventInfo";
 import DeleteEventModal from "../components/DeleteEventModal";
 import ErrorMessage from "../components/ErrorMessage";
 import axios from "axios";
@@ -61,7 +62,8 @@ export default {
     Header,
     SongList,
     DeleteEventModal,
-    ErrorMessage
+    ErrorMessage,
+    EventInfo
   },
   methods: {
     getEvent() {
