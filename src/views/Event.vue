@@ -8,7 +8,7 @@
     <v-row v-else>
       <v-col cols="12">
         <Header text="Event" />
-        <EventInfo :event="event" :tracks="tracks" />
+        <EventInfo :event="event" />
       </v-col>
       <v-col cols="12">
         <v-btn @click="$router.push('/search/' + id)" color="accent" dark>
@@ -56,7 +56,6 @@ export default {
   data: () => ({
     event: null,
     loading: false,
-    tracks: [],
     error: ""
   }),
   components: {
@@ -74,10 +73,6 @@ export default {
         .then(response => {
           if (response.status == 200) this.event = response.data;
           this.loading = false;
-          this.tracks =
-            this.event && this.event.playlist && this.event.playlist.tracks
-              ? this.event.playlist.tracks
-              : [];
         })
         .catch(this.setError);
     },

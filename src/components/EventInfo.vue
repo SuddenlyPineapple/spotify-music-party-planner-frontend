@@ -58,7 +58,14 @@
 
 <script>
 export default {
-  props: ["event", "tracks"],
+  props: ["event"],
+  computed: {
+    tracks() {
+      return this.event && this.event.playlist && this.event.playlist.tracks
+        ? this.event.playlist.tracks
+        : [];
+    }
+  },
   methods: {
     getTrackThumbnail(n) {
       if (this.tracks.length != 0) {
