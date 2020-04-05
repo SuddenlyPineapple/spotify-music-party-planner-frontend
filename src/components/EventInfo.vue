@@ -24,7 +24,7 @@
       </v-col>
       <v-divider vertical></v-divider>
       <v-col v-if="event && tracks" cols="7">
-        <div style="font-size:9px; letter-spacing: 10px;">
+        <div class="event-headline">
           <strong>EVENT</strong>
         </div>
         <h1 class="ls-2 mb-0">
@@ -91,5 +91,9 @@ export default {
 }
 .ls-3 {
   letter-spacing: 2px !important;
+}
+.event-headline {
+  font-size: 9px;
+  letter-spacing: 10px;
 }
 </style>
