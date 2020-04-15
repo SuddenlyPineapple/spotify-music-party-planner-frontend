@@ -68,6 +68,10 @@ export default new Vuex.Store({
           resolve(this.state.userData);
         }
       });
+    },
+    getUserToken() {
+      const token = this.getters.getToken;
+      return token ? token : null;
     }
   }
 });

@@ -43,12 +43,12 @@
           Date:
         </div>
         <div class="mb-1 body-1 ls-2">
-          <strong>{{ event.date }}</strong>
+          <strong>{{ dateFormat(event.date) }}</strong>
         </div>
         <div class="subtitle-1 ls-3">
           Host:
         </div>
-        <div class="mb-1 body-1 ls-2">
+        <div class="mb-1 body-1 ls-2 text-truncate">
           <strong>{{ event.hostId }}</strong>
         </div>
       </v-col>
@@ -57,8 +57,13 @@
 </template>
 
 <script>
+import dateFormat from "../helpers/dateFormat";
+
 export default {
   props: ["event"],
+  data: () => ({
+    dateFormat: dateFormat
+  }),
   computed: {
     tracks() {
       return this.event && this.event.playlist && this.event.playlist.tracks

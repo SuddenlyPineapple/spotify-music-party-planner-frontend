@@ -32,6 +32,10 @@
           mdi-content-copy
         </v-icon>
       </template>
+
+      <template v-slot:item.date="{ item }">
+        {{ dateFormat(item.date) }}
+      </template>
     </v-data-table>
 
     <v-snackbar
@@ -51,6 +55,8 @@
 </template>
 
 <script>
+import dateFormat from "../helpers/dateFormat";
+
 export default {
   name: "EventList",
   props: ["events", "error", "loading"],
@@ -63,7 +69,8 @@ export default {
       { text: "Date", value: "date" },
       { text: "Open", value: "open" },
       { text: "Copy Link", value: "copy" }
-    ]
+    ],
+    dateFormat: dateFormat
   }),
   methods: {
     copyLink(id) {

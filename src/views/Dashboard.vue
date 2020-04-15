@@ -7,7 +7,7 @@
 
       <v-col cols="12" v-if="auth.error || error">
         <ErrorMessage
-          message="There is a problem with Spotify API or our backend. Try refresh page or contact Administraor."
+          message="There is a problem with Spotify API or our backend. Try refresh page or contact Administrator."
         />
       </v-col>
 

@@ -7,7 +7,7 @@
 
       <v-col cols="12" v-if="error">
         <ErrorMessage
-          message="There is a problem with Spotify API or our backend. Please contact Administraor."
+          message="There is a problem with Spotify API or our backend. Please contact Administrator."
         />
       </v-col>
 
