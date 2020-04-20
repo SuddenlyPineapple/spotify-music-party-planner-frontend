@@ -56,7 +56,7 @@ export default {
   data: () => ({
     query: "",
     tracks: [],
-    loading: true,
+    loading: false,
     error: ""
   }),
   methods: {
