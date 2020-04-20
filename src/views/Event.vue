@@ -56,6 +56,10 @@
           />
         </v-col>
       </v-row>
+      <v-row>
+        <Header text="Suggested Songs" />
+        <SuggestedSongs :event="event" />
+      </v-row>
     </v-container>
     <v-snackbar
       v-model="showInfo"
@@ -77,6 +81,7 @@
 import Header from "../components/Header";
 import SongList from "../components/SongList";
 import EventInfo from "../components/EventInfo";
+import SuggestedSongs from "../components/SuggestedSongs";
 import DeleteEventModal from "../components/DeleteEventModal";
 import ErrorMessage from "../components/ErrorMessage";
 import { mapActions } from "vuex";
@@ -100,6 +105,7 @@ export default {
   components: {
     Header,
     SongList,
+    SuggestedSongs,
     DeleteEventModal,
     ErrorMessage,
     EventInfo
