@@ -11,6 +11,12 @@
           <Header text="Event" />
           <EventInfo :event="event" />
         </v-col>
+        <v-col cols="12" v-if="event" class="py-0">
+          <GenresManager
+            :eventId="id"
+            :genres="event.playlist.suggestions.fromGuests.genres"
+          />
+        </v-col>
         <v-col cols="12" class="py-0">
           <v-btn
             @click="$router.push('/search/' + id)"
@@ -82,6 +88,7 @@ import Header from "../components/Header";
 import SongList from "../components/SongList";
 import EventInfo from "../components/EventInfo";
 import SuggestedSongs from "../components/SuggestedSongs";
+import GenresManager from "../components/GenresManager";
 import DeleteEventModal from "../components/DeleteEventModal";
 import ErrorMessage from "../components/ErrorMessage";
 import { mapActions } from "vuex";
@@ -93,7 +100,7 @@ export default {
   props: ["id"],
   data: () => ({
     event: null,
-    loading: false,
+    loading: true,
     error: "",
     userToken: null,
     syncLoading: false,
@@ -108,7 +115,8 @@ export default {
     SuggestedSongs,
     DeleteEventModal,
     ErrorMessage,
-    EventInfo
+    EventInfo,
+    GenresManager
   },
   methods: {
     getEvent() {
@@ -117,9 +125,11 @@ export default {
         .get(apiUrl + "events/" + this.id)
         .then(response => {
           if (response.status == 200) this.event = response.data;
-          this.loading = false;
         })
-        .catch(this.setError);
+        .catch(this.setError)
+        .finally(() => {
+          this.loading = false;
+        });
     },
     syncPlaylist() {
       this.syncLoading = true;
@@ -129,11 +139,13 @@ export default {
         })
         .then(response => {
           if (response.status == 200) {
-            this.syncLoading = false;
             this.showInfo = true;
           } else throw "Request Failed";
         })
-        .catch(this.setError);
+        .catch(this.setError)
+        .finally(() => {
+          this.syncLoading = false;
+        });
     },
     setError(error) {
       if (error == "Error: Request failed with status code 404")
@@ -142,8 +154,6 @@ export default {
       else
         this.error =
           "There is a problem with Spotify API or our backend. Try refresh page or contact Administrator.";
-      this.loading = false;
-      this.syncLoading = false;
     }
   },
   async mounted() {

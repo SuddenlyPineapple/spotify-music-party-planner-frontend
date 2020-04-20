@@ -79,10 +79,11 @@ export default {
               .get(apiUrl + "events?userId=" + user.id)
               .then(response => {
                 this.events = response.data.events;
-                this.loading = false;
               })
               .catch(() => {
                 this.error = true;
+              })
+              .finally(() => {
                 this.loading = false;
               });
           } else {

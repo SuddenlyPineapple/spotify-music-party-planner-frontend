@@ -1,5 +1,7 @@
 <template>
   <v-container>
+    <BackButton v-if="id" :path="'/event/' + id" />
+
     <v-row>
       <v-col cols="12">
         <Header text="Search" />
@@ -38,6 +40,7 @@
 import Header from "../components/Header";
 import SongList from "../components/SongList";
 import ErrorMessage from "../components/ErrorMessage";
+import BackButton from "../components/BackButton";
 import axios from "axios";
 import { apiUrl } from "../config/backend";
 
@@ -47,6 +50,7 @@ export default {
   components: {
     Header,
     SongList,
+    BackButton,
     ErrorMessage
   },
   data: () => ({
@@ -67,10 +71,11 @@ export default {
             if (response.status == 200) this.tracks = response.data.tracks;
             else if (response.status == 204) this.tracks = [];
             else this.error = "Response error";
-            this.loading = false;
           })
           .catch(error => {
             this.error = error;
+          })
+          .finally(() => {
             this.loading = false;
           });
       }
