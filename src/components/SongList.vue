@@ -15,6 +15,7 @@
           :headers="headers"
           :items-per-page="10"
           class="elevation-1"
+          multi-sort
         >
           <template v-slot:item.album="{ item }">
             <img
@@ -84,7 +85,7 @@ export default {
             { text: "Artist", value: "artist" },
             { text: "Album", value: "album.name" },
             { text: "Duration", value: "duration" },
-            { text: "Add to playlist", value: "id" }
+            { text: "Add to playlist", sortable: false, value: "id" }
           ]
         : [
             { text: "Cover", sortable: false, value: "album" },
@@ -104,13 +105,13 @@ export default {
       else this.error = error;
     },
     addSong(songId) {
-      const endpoint = apiUrl + "events/" + this.eventId + "/suggestions";
+      const endpoint = apiUrl + "events/" + this.eventId + "/tracks";
 
       if (this.inPlaylist(songId)) {
         axios
           .delete(endpoint, {
             data: {
-              tracks: [songId]
+              trackIds: [songId]
             }
           })
           .then(response => {
@@ -121,7 +122,7 @@ export default {
       } else {
         axios
           .put(endpoint, {
-            tracks: [songId]
+            trackIds: [songId]
           })
           .then(response => {
             if (response.status == 200) this.selected.push(songId);
