@@ -1,10 +1,11 @@
 <template>
-  <h1>{{ text }}</h1>
+  <h1 v-if="!secondary">{{ text }}</h1>
+  <h2 v-else>{{ text }}</h2>
 </template>
 
 <script>
 export default {
   name: "Header",
-  props: ["text"]
+  props: ["text", "secondary"]
 };
 </script>

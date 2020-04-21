@@ -11,12 +11,6 @@
           <Header text="Event" />
           <EventInfo :event="event" />
         </v-col>
-        <v-col cols="12" v-if="event" class="py-0">
-          <GenresManager
-            :eventId="id"
-            :genres="event.playlist.suggestions.fromGuests.genres"
-          />
-        </v-col>
         <v-col cols="12" class="py-0">
           <v-btn
             @click="$router.push('/search/' + id)"
@@ -42,6 +36,13 @@
             Sync With Spotify
           </v-btn>
         </v-col>
+        <v-col cols="12" class="pb-0">
+          <span
+            class="theme--light v-label v-label--active caption small-spacing"
+          >
+            Song list - based on participants and yours suggestions
+          </span>
+        </v-col>
         <v-col cols="12" v-if="event" class="py-0">
           <SongList
             :tracks="
@@ -59,6 +60,28 @@
             v-if="event && event.id && event.name && !!userToken"
             :eventId="event.id"
             :eventName="event.name"
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" class="pt-0">
+          <Header text="Recomendations" :secondary="true" />
+        </v-col>
+        <v-col cols="12">
+          <GenresManager
+            v-if="event"
+            :eventId="id"
+            :genres="event.playlist.suggestions.fromGuests.genres"
+          />
+        </v-col>
+        <v-col cols="12">
+          <SuggestedSongs
+            v-if="event"
+            :eventId="id"
+            :recomendations="
+              event.playlist.suggestions.fromRecommendations.tracks
+            "
+            @songAdd="getEvent"
           />
         </v-col>
       </v-row>
@@ -83,6 +106,7 @@
 import Header from "../components/Header";
 import SongList from "../components/SongList";
 import EventInfo from "../components/EventInfo";
+import SuggestedSongs from "../components/SuggestedSongs";
 import GenresManager from "../components/GenresManager";
 import DeleteEventModal from "../components/DeleteEventModal";
 import ErrorMessage from "../components/ErrorMessage";
@@ -107,6 +131,7 @@ export default {
   components: {
     Header,
     SongList,
+    SuggestedSongs,
     DeleteEventModal,
     ErrorMessage,
     EventInfo,
