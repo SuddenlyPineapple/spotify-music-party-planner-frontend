@@ -49,7 +49,7 @@
           Host:
         </div>
         <div class="mb-1 body-1 ls-2 text-truncate">
-          <strong>{{ event.hostId }}</strong>
+          <strong>{{ event.hostname ? event.hostname : event.hostId }}</strong>
         </div>
       </v-col>
     </v-row>
