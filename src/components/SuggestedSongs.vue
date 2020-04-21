@@ -5,18 +5,29 @@
         Recomended Songs - based on playlist and genres list
       </span>
     </v-col>
-    <v-col cols="12" class="pt-0">
+    <v-col cols="12" class="text-center" v-if="loading">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="accent"
+        indeterminate
+      ></v-progress-circular>
+    </v-col>
+    <v-col cols="12" class="pt-0" v-else>
       <v-row class="grey lighten-5">
         <v-col
           cols="6"
           sm="3"
           md="2"
-          v-for="track in recomendations.slice(0, 12)"
+          v-for="track in recomendations.slice(0, 24)"
           :key="track.element.id"
         >
           <v-card>
             <v-hover v-slot:default="{ hover }">
-              <v-img :src="getTrackThumbnail(track.element.album.img)">
+              <v-img
+                :src="getTrackThumbnail(track.element.album.img)"
+                :lazy-src="require('../assets/default-album-artwork.png')"
+              >
                 <v-fade-transition>
                   <v-overlay
                     v-if="hover"
@@ -33,12 +44,22 @@
                         </v-col>
                         <v-col cols="12">
                           <v-btn
+                            v-if="!inPlaylist(track.element.id)"
                             @click="addSongToTracks(track.element.id)"
                             dark
                             icon
                             :ripple="false"
                           >
                             <v-icon dark>mdi-heart-outline</v-icon>
+                          </v-btn>
+                          <v-btn
+                            v-else
+                            @click="deleteSongFromTracks(track.element.id)"
+                            dark
+                            icon
+                            :ripple="false"
+                          >
+                            <v-icon dark>mdi-heart</v-icon>
                           </v-btn>
                         </v-col>
                       </v-row>
@@ -59,7 +80,10 @@ import axios from "axios";
 import { apiUrl } from "../config/backend";
 
 export default {
-  props: ["eventId", "recomendations"],
+  props: ["eventId", "recomendations", "pristineSelected", "loading"],
+  data: () => ({
+    selected: []
+  }),
   methods: {
     getTrackThumbnail(images) {
       if (images.length) {
@@ -76,11 +100,41 @@ export default {
           trackIds: [songId]
         })
         .then(response => {
-          if (response.status == 200)
-            console.log("snackbar display & hover lock or smth"); // TODO: snackbar display & hover lock or smth
+          if (response.status == 200) {
+            this.$emit("eventUpdated", response.data);
+            this.selected = response.data.playlist.tracks.map(
+              track => track.id
+            );
+          }
         })
         .catch(this.setError);
+    },
+    deleteSongFromTracks(songId) {
+      axios
+        .delete(apiUrl + "events/" + this.eventId + "/tracks", {
+          data: {
+            trackIds: [songId]
+          }
+        })
+        .then(response => {
+          if (response.status == 200) {
+            this.$emit("eventUpdated", response.data);
+            this.selected = response.data.playlist.tracks.map(
+              track => track.id
+            );
+          }
+        })
+        .catch(this.setError);
+    },
+    inPlaylist(songId) {
+      return !!this.selected.filter(song => song == songId).length;
     }
+  },
+  mounted() {
+    this.selected = [...this.pristineSelected];
+  },
+  updated() {
+    this.selected = [...this.pristineSelected];
   }
 };
 </script>

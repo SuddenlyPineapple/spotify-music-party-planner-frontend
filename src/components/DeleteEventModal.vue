@@ -1,55 +1,53 @@
 <template>
-  <v-row class="ml-2">
-    <v-dialog v-model="dialog" persistent max-width="600px">
-      <template v-slot:activator="{ on }">
-        <v-btn color="red" dark v-on="on">
-          Delete Event
-        </v-btn>
-      </template>
-      <v-card>
-        <v-card-title>
-          <span class="headline">Delete Event</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row v-if="error">
-              <v-col cols="12">
-                <ErrorMessage :message="error" />
-              </v-col>
-            </v-row>
+  <v-dialog v-model="dialog" persistent max-width="600px">
+    <template v-slot:activator="{ on }">
+      <v-btn color="red" dark v-on="on" class="ma-2">
+        Delete Event
+      </v-btn>
+    </template>
+    <v-card>
+      <v-card-title>
+        <span class="headline">Delete Event</span>
+      </v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-row v-if="error">
+            <v-col cols="12">
+              <ErrorMessage :message="error" />
+            </v-col>
+          </v-row>
 
-            <v-row>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="eventNameInput"
-                  label="Enter event name to delete it*"
-                  prepend-icon="mdi-pen"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
-          <small>*indicates required field</small>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="accent" class="px-2" text @click="dialog = false"
-            >Close</v-btn
-          >
-          <v-btn
-            color="red"
-            class="px-3"
-            :dark="!disabled"
-            @click="deleteEvent"
-            :disabled="disabled"
-          >
-            <span v-if="!loading">DELETE</span>
-            <v-icon v-else>mdi-spin mdi-loading</v-icon>
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-text-field
+                v-model="eventNameInput"
+                label="Enter event name to delete it*"
+                prepend-icon="mdi-pen"
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+        <small>*indicates required field</small>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="accent" class="px-2" text @click="dialog = false"
+          >Close</v-btn
+        >
+        <v-btn
+          color="red"
+          class="px-3"
+          :dark="!disabled"
+          @click="deleteEvent"
+          :disabled="disabled"
+        >
+          <span v-if="!loading">DELETE</span>
+          <v-icon v-else>mdi-spin mdi-loading</v-icon>
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>

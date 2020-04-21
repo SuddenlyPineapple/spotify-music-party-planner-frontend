@@ -18,10 +18,10 @@
             dark
             class="ma-2"
           >
-            Add Songs
+            <v-icon>mdi-plus</v-icon> Add Songs
           </v-btn>
           <v-btn @click="getEvent" color="accent" dark class="ma-2">
-            Refresh Playlist
+            <v-icon>mdi-refresh</v-icon> Refresh Data
           </v-btn>
           <v-btn
             v-if="!!userToken"
@@ -35,6 +35,11 @@
             <v-icon v-else>mdi-sync</v-icon>
             Sync With Spotify
           </v-btn>
+          <DeleteEventModal
+            v-if="event && event.id && event.name && !!userToken"
+            :eventId="event.id"
+            :eventName="event.name"
+          />
         </v-col>
         <v-col cols="12" class="pb-0">
           <span
@@ -53,13 +58,6 @@
             :eventId="event.id"
             :eventView="true"
             :loading="loading"
-          />
-        </v-col>
-        <v-col cols="12">
-          <DeleteEventModal
-            v-if="event && event.id && event.name && !!userToken"
-            :eventId="event.id"
-            :eventName="event.name"
           />
         </v-col>
       </v-row>
@@ -81,7 +79,9 @@
             :recomendations="
               event.playlist.suggestions.fromRecommendations.tracks
             "
-            @songAdd="getEvent"
+            :pristineSelected="event.playlist.tracks.map(track => track.id)"
+            :loading="loading"
+            @eventUpdated="fillEventData"
           />
         </v-col>
       </v-row>
@@ -173,6 +173,11 @@ export default {
       else
         this.error =
           "There is a problem with Spotify API or our backend. Try refresh page or contact Administrator.";
+    },
+    async fillEventData(eventData) {
+      this.loading = true;
+      this.event.playlist.tracks = eventData.playlist.tracks;
+      this.loading = false;
     }
   },
   async mounted() {
