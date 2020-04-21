@@ -147,8 +147,12 @@ export default {
     else this.selected = this.tracks.map(track => track.id);
   },
   updated() {
+<<<<<<< HEAD
     if (this.eventId && this.eventView)
       this.selected = this.tracks.map(track => track.id);
+=======
+    this.selected = this.tracks.map(track => track.id);
+>>>>>>> master
   }
 };
 </script>

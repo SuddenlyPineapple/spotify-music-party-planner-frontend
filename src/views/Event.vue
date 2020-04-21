@@ -48,6 +48,13 @@
             Song list - based on participants and yours suggestions
           </span>
         </v-col>
+        <v-col cols="12" class="pb-0">
+          <span
+            class="theme--light v-label v-label--active caption small-spacing"
+          >
+            Song list - based on participants and yours suggestions
+          </span>
+        </v-col>
         <v-col cols="12" v-if="event" class="py-0">
           <SongList
             :tracks="
@@ -83,6 +90,28 @@
             :loading="loading"
             @eventUpdated="fillEventData"
             @refreshData="getEvent"
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" class="pt-0">
+          <Header text="Recomendations" :secondary="true" />
+        </v-col>
+        <v-col cols="12">
+          <GenresManager
+            v-if="event"
+            :eventId="id"
+            :genres="event.playlist.suggestions.fromGuests.genres"
+          />
+        </v-col>
+        <v-col cols="12">
+          <SuggestedSongs
+            v-if="event"
+            :eventId="id"
+            :recomendations="
+              event.playlist.suggestions.fromRecommendations.tracks
+            "
+            @songAdd="getEvent"
           />
         </v-col>
       </v-row>
