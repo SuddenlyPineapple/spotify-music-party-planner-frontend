@@ -2,7 +2,10 @@
   <v-row v-if="recomendations">
     <v-col cols="12" class="pb-0">
       <span class="theme--light v-label v-label--active caption small-spacing">
-        Recomended Songs - based on playlist and genres list
+        Recomended Songs - based on playlist and genres list (after adding new
+        genre click
+        <a @click="refreshEvent($event)"><u>REFRESH DATA</u></a> for new
+        recomendations!)
       </span>
     </v-col>
     <v-col cols="12" class="text-center" v-if="loading">
@@ -26,7 +29,7 @@
             <v-hover v-slot:default="{ hover }">
               <v-img
                 :src="getTrackThumbnail(track.element.album.img)"
-                :lazy-src="require('../assets/default-album-artwork.png')"
+                lazy-src="../assets/default-album-artwork.png"
               >
                 <v-fade-transition>
                   <v-overlay
@@ -128,6 +131,10 @@ export default {
     },
     inPlaylist(songId) {
       return !!this.selected.filter(song => song == songId).length;
+    },
+    refreshEvent(e) {
+      e.preventDefault();
+      this.$emit("refreshData");
     }
   },
   mounted() {

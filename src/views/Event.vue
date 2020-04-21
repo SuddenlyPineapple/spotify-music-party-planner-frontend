@@ -82,6 +82,7 @@
             :pristineSelected="event.playlist.tracks.map(track => track.id)"
             :loading="loading"
             @eventUpdated="fillEventData"
+            @refreshData="getEvent"
           />
         </v-col>
       </v-row>
