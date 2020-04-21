@@ -45,6 +45,7 @@ export default {
     setError(message, error) {
       this.showError = true;
       this.errorMessage = message + " (" + error + ")";
+      this.selectedGenres = [...this.genresPristine];
     },
     getGenres() {
       axios
