@@ -16,6 +16,13 @@
         indeterminate
       ></v-progress-circular>
     </v-col>
+    <v-col
+      cols="12"
+      class="text-center caption"
+      v-else-if="recomendations.length == 0"
+    >
+      Add more genres & tracks to see recomendations...
+    </v-col>
     <v-col cols="12" class="pt-0" v-else>
       <v-row class="grey lighten-5">
         <v-col
