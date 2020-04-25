@@ -60,8 +60,6 @@
             :loading="loading"
           />
         </v-col>
-      </v-row>
-      <v-row>
         <v-col cols="12" class="pt-0">
           <Header text="Recomendations" :secondary="true" />
         </v-col>
