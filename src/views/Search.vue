@@ -16,7 +16,6 @@
       <v-col cols="12" class="pb-0 mb-0">
         <v-text-field
           v-model="query"
-          @keyup="searchMusic"
           solo
           placeholder="Type to search music..."
         />
@@ -41,6 +40,7 @@ import Header from "../components/Header";
 import SongList from "../components/SongList";
 import ErrorMessage from "../components/ErrorMessage";
 import BackButton from "../components/BackButton";
+import debounce from "lodash/debounce";
 import axios from "axios";
 import { apiUrl } from "../config/backend";
 
@@ -59,6 +59,16 @@ export default {
     loading: false,
     error: ""
   }),
+  watch: {
+    // Answer why all defined methods are "function" instead of lambdas is here:
+    // https://stackoverflow.com/questions/53041171/lodashs-debounce-not-working-in-vue-js
+    query: function() {
+      this.debouncedSearch();
+    }
+  },
+  created: function() {
+    this.debouncedSearch = debounce(this.searchMusic, 500);
+  },
   methods: {
     searchMusic() {
       this.error = "";

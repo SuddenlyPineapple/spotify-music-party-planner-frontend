@@ -87,9 +87,9 @@
                   </template>
                   <v-date-picker v-model="date" no-title scrollable>
                     <v-spacer></v-spacer>
-                    <v-btn text color="primary" @click="datePickerMenu = false"
-                      >Cancel</v-btn
-                    >
+                    <v-btn text color="primary" @click="datePickerMenu = false">
+                      Cancel
+                    </v-btn>
                     <v-btn
                       text
                       color="primary"
@@ -113,9 +113,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="accent" class="px-2" text @click="dialog = false"
-            >Close</v-btn
-          >
+          <v-btn color="accent" class="px-2" text @click="dialog = false">
+            Close
+          </v-btn>
           <v-btn
             color="accent"
             class="px-3"
