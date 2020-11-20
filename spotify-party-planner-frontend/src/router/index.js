@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
+import { GITHUB_DEPLOY } from "../config/auth";
 
 Vue.use(VueRouter);
 
@@ -46,8 +47,7 @@ const routes = [
 const router = new VueRouter({
   routes,
   mode: "history",
-  base:
-    process.env.NODE_ENV === "production"
+  base:  process.env.NODE_ENV === "production" && GITHUB_DEPLOY
       ? "/spotify-music-party-planner-frontend/"
       : "/"
 });
