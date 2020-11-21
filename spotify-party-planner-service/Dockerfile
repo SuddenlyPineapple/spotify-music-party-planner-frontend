@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-openjdk-alpine:11
+FROM openjdk:11
 
 COPY build/libs/spotify-party-planner-1.0.0.jar /app/app.jar
 
