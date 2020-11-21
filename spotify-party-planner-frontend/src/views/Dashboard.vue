@@ -26,7 +26,7 @@
           @saved="getEvents"
         />
       </v-col>
-      <v-col cols="10" offset="1">
+      <v-col cols="12">
         <Adsense
           data-ad-client="ca-pub-1122450262680065"
           data-ad-slot="2267167587"
