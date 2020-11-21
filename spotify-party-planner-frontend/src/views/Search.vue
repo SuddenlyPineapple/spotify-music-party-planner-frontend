@@ -25,19 +25,23 @@
         <SongList :tracks="tracks" :loading="loading" :eventId="id" />
       </v-col>
 
-      <div v-else>
-        <v-card-title class="pt-0 less-margin-top">
-          <img src="../assets/arrow.png" class="arrow-position" />
-          <h1 class="title">Search for songs!</h1>
-        </v-card-title>
-      </div>
-
-      <v-col cols="12">
-        <Adsense
-          data-ad-client="ca-pub-1122450262680065"
-          data-ad-slot="7842943805"
-        >
-        </Adsense>
+      <v-col cols="12" v-else>
+        <v-row justify="center">
+          <v-col cols="12">
+            <v-card-title class="pt-0 less-margin-top">
+              <img src="../assets/arrow.png" class="arrow-position" />
+              <h1 class="title">Search for songs!</h1>
+            </v-card-title>
+          </v-col>
+          <v-col cols="10">
+            <Adsense
+              data-ad-client="ca-pub-1122450262680065"
+              data-ad-slot="7842943805"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -50,7 +54,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import BackButton from "../components/BackButton";
 import debounce from "lodash/debounce";
 import axios from "axios";
-import { apiUrl } from "../config/backend";
+import { apiUrl } from "@/config/backend";
 
 export default {
   name: "Search",

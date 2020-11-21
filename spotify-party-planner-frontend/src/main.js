@@ -12,6 +12,7 @@ import Adsense from "vue-google-adsense/dist/Adsense.min.js";
 Vue.use(require("vue-script2"));
 
 Vue.use(Adsense);
+
 Vue.use(VueClipboard);
 VueClipboard.config.autoSetContainer = true;
 
