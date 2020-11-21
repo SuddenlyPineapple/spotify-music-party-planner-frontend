@@ -13,7 +13,6 @@ services:
     spotify-party-planner-frontend:
         build:
             context: spotify-party-planner-frontend
-            target: ${TARGET}
             dockerfile: Dockerfile
         ports:
             - "80:8080"
