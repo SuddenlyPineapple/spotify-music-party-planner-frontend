@@ -1,0 +1,26 @@
+digraph partyplanner {
+    
+    label="Spotify Party Planner"
+    labelloc=t
+    fontname="JetBrains Mono Medium"
+
+    graph [fontsize=45 ranksep=2]
+    node [fontname="JetBrains Mono Medium" fontcolor=white fontsize=24 padding=5 style=filled]
+    edge [dir=both penwidth=5] 
+    nodesep=3
+    
+    "user" [shape=diamond height=2 width=3 color=crimson]
+    "frontend" [shape=box height=2 width=3 color=darkgoldenrod3]
+    "backend" [shape=box height=2 width=3 color=cyan4]
+    "db" [shape=oval height=2 width=3 color=dodgerblue1]
+    "spotify" [shape=doublecircle height=2 width=3 color=chartreuse3]
+
+    "user" -> "frontend" [style=dashed]
+
+    "frontend" -> "backend" [penwidth=10 dir=LR]
+    "backend" -> "frontend" [style=solid dir=LR]
+    {rank=same; "db" -> "backend" [style=solid]}
+    "backend" -> "spotify" [penwidth=10 dir=LR]
+    "spotify" -> "backend" [style=solid dir=LR]
+    
+}
