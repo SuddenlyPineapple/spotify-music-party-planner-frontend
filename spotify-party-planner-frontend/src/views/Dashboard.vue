@@ -26,6 +26,14 @@
           @saved="getEvents"
         />
       </v-col>
+      <v-col cols="10" offset="1">
+        <Adsense
+          data-ad-client="ca-pub-1122450262680065"
+          data-ad-slot="2267167587"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+      </v-col>
     </v-row>
   </v-container>
 </template>
