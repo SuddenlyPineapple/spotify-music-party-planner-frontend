@@ -7,7 +7,7 @@ const SCOPES = encodeURIComponent(
 export const GITHUB_DEPLOY = false
 
 const REDIRECT_URI = process.env.NODE_ENV === "production"
-    ? encodeURIComponent(GITHUB_DEPLOY ? "https://suddenlypineapple.github.io" : "https://jrie.eu:8080")
+    ? encodeURIComponent(GITHUB_DEPLOY ? "https://suddenlypineapple.github.io" : "http://jrie.eu")
     : encodeURIComponent("http://localhost:8080");
 
 export const redirectToURL = route => `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&scope=${SCOPES}&redirect_uri=${REDIRECT_URI}${route}`;
