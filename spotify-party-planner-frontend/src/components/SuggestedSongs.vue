@@ -117,9 +117,9 @@ export default {
 
   methods: {
     getSuggestionHeight() {
-      this.suggestionHeight = this.$refs.suggestion
-        ? this.$refs.suggestion[0].$el.clientWidth
-        : 260;
+      this.suggestionHeight = !this.$refs.suggestion[0]
+        ? 250
+        : this.$refs.suggestion[0].$el.clientWidth;
     },
 
     getTrackThumbnail(images) {
