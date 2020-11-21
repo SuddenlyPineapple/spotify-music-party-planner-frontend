@@ -27,13 +27,13 @@
       <v-row class="grey lighten-5">
         <v-col
           cols="6"
-          sm="3"
-          md="2"
+          md="4"
           v-for="(track, index) in recomendations.slice(0, 24)"
           :key="index"
         >
-          <v-card v-if="(index + 1) % 8 === 0">
+          <v-card v-if="(index + 1) % 5 === 0">
             <InFeedAdsense
+              :style="'height: ' + suggestionHeight"
               data-ad-layout-key="+2a+rx+1+2-3"
               data-ad-client="ca-pub-1122450262680065"
               data-ad-slot="5112822776"
@@ -43,6 +43,7 @@
           <v-card v-else>
             <v-hover v-slot:default="{ hover }">
               <v-img
+                ref="suggestion"
                 :src="getTrackThumbnail(track.element.album.img)"
                 lazy-src="../assets/default-album-artwork.png"
               >
@@ -95,14 +96,32 @@
 
 <script>
 import axios from "axios";
-import { apiUrl } from "../config/backend";
+import { apiUrl } from "@/config/backend";
 
 export default {
   props: ["eventId", "recomendations", "pristineSelected", "loading"],
+
   data: () => ({
-    selected: []
+    selected: [],
+    suggestionHeight: "250px"
   }),
+
+  mounted() {
+    this.selected = [...this.pristineSelected];
+  },
+
+  updated() {
+    this.selected = [...this.pristineSelected];
+  },
+
   methods: {
+    getSuggestionHeight() {
+      console.log(this.$refs.suggestion);
+      this.suggestionHeight = this.$refs.suggestion
+        ? this.$refs.suggestion.clientHeight
+        : "250px";
+    },
+
     getTrackThumbnail(images) {
       if (images.length) {
         if (images.length >= 2) {
@@ -151,12 +170,6 @@ export default {
       e.preventDefault();
       this.$emit("refreshData");
     }
-  },
-  mounted() {
-    this.selected = [...this.pristineSelected];
-  },
-  updated() {
-    this.selected = [...this.pristineSelected];
   }
 };
 </script>
