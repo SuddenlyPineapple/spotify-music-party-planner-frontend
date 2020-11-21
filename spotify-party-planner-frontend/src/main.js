@@ -7,6 +7,11 @@ import VueClipboard from "vue-clipboard2";
 import "roboto-fontface/css/roboto/roboto-fontface.css";
 import "@mdi/font/css/materialdesignicons.css";
 
+import Adsense from "vue-google-adsense/dist/Adsense.min.js";
+
+Vue.use(require("vue-script2"));
+
+Vue.use(Adsense);
 Vue.use(VueClipboard);
 VueClipboard.config.autoSetContainer = true;
 

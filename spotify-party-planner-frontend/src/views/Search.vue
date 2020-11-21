@@ -31,6 +31,14 @@
           <h1 class="title">Search for songs!</h1>
         </v-card-title>
       </div>
+
+      <v-col cols="12">
+        <Adsense
+          data-ad-client="ca-pub-1122450262680065"
+          data-ad-slot="7842943805"
+        >
+        </Adsense>
+      </v-col>
     </v-row>
   </v-container>
 </template>
