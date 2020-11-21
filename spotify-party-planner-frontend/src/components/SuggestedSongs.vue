@@ -29,10 +29,18 @@
           cols="6"
           sm="3"
           md="2"
-          v-for="track in recomendations.slice(0, 24)"
-          :key="track.element.id"
+          v-for="(track, index) in recomendations.slice(0, 24)"
+          :key="index"
         >
-          <v-card>
+          <v-card v-if="(index + 1) % 8 === 0">
+            <InFeedAdsense
+              data-ad-layout-key="+2a+rx+1+2-3"
+              data-ad-client="ca-pub-1122450262680065"
+              data-ad-slot="5112822776"
+            >
+            </InFeedAdsense>
+          </v-card>
+          <v-card v-else>
             <v-hover v-slot:default="{ hover }">
               <v-img
                 :src="getTrackThumbnail(track.element.album.img)"
