@@ -26,14 +26,14 @@
     <v-col cols="12" class="pt-0" v-else>
       <v-row class="grey lighten-5">
         <v-col
-          cols="6"
+          cols="12"
+          sm="6"
           md="4"
           v-for="(track, index) in recomendations.slice(0, 24)"
           :key="index"
         >
-          <v-card v-if="(index + 1) % 5 === 0">
+          <v-card v-if="(index + 1) % 5 === 0" :height="suggestionHeight">
             <InFeedAdsense
-              :style="'height: ' + suggestionHeight"
               data-ad-layout-key="+2a+rx+1+2-3"
               data-ad-client="ca-pub-1122450262680065"
               data-ad-slot="5112822776"
@@ -103,11 +103,12 @@ export default {
 
   data: () => ({
     selected: [],
-    suggestionHeight: "250px"
+    suggestionHeight: 250
   }),
 
   mounted() {
     this.selected = [...this.pristineSelected];
+    this.getSuggestionHeight();
   },
 
   updated() {
@@ -116,10 +117,9 @@ export default {
 
   methods: {
     getSuggestionHeight() {
-      console.log(this.$refs.suggestion);
       this.suggestionHeight = this.$refs.suggestion
-        ? this.$refs.suggestion.clientHeight
-        : "250px";
+        ? this.$refs.suggestion[0].$el.clientWidth
+        : 260;
     },
 
     getTrackThumbnail(images) {
