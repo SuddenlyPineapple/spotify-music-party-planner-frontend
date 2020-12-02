@@ -11,19 +11,29 @@
             PLANNER
           </strong>
           is an application that allows you to jointly plan playlists for social
-          gatherings. The application is integrated with Spotify's REST API.
+          gatherings. The application is integrated with Spotify's REST API and
+          GoogleAds.
         </p>
         <p>
           It's also team project created by IT students at
           <strong>Poznan University of Technology.</strong>
         </p>
         <strong>Authors:</strong>
-        <ul>
+        <ul class="mb-4">
           <li>Wojciech Kasperski</li>
           <li>Jakub Riegel</li>
+          <li>Rafał Ewiak</li>
           <li>Gracjan Trawiński</li>
           <li>Łukasz Wełnic</li>
         </ul>
+        <p>
+          Whole project is open source and you can contribute to it on
+          <a
+            href="https://github.com/SuddenlyPineapple/spotify-music-party-planner-frontend"
+            alt="github link"
+            >GitHub</a
+          >.
+        </p>
       </v-col>
     </v-row>
   </v-container>

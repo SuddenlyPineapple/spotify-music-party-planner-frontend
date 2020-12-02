@@ -46,7 +46,7 @@
           >
             Wojciech Kasperski
           </a>
-          , Jakub Riegel, Gracjan Trawiński, Łukasz Wełnic
+          , Jakub Riegel, Rafał Ewiak, Gracjan Trawiński, Łukasz Wełnic
         </strong>
       </v-card-text>
     </v-card>

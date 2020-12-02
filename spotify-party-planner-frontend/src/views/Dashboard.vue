@@ -34,6 +34,9 @@
           data-full-width-responsive="true"
         />
       </v-col>
+      <v-col cols="12" v-if="!(auth && auth.token)">
+        <AppDescription />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -44,6 +47,7 @@ import LogonButton from "../components/LogonButton";
 import ErrorMessage from "../components/ErrorMessage";
 import EventList from "../components/EventList";
 import AddEventModal from "../components/AddEventModal";
+import AppDescription from "../components/AppDescription";
 
 import { mapActions } from "vuex";
 import { apiUrl } from "../config/backend";
@@ -61,7 +65,8 @@ export default {
     LogonButton,
     ErrorMessage,
     EventList,
-    AddEventModal
+    AddEventModal,
+    AppDescription
   },
   data: () => ({
     authHandler: redirectSpotifyAuth,
